@@ -24,7 +24,7 @@ function frameQR(){
     if(qr&&qr.data){
       if(qr.data==="Origem") logInfo("Origem detectada");
       else if(qr.data==="+X") logInfo("+X detectado");
-      else if(qr.data==="+Z") logInfo("+Z detectado"); // NOVO: reconhecimento +Z
+      else if(qr.data==="+Z") logInfo("+Z detectado"); // linha adicionada
       else logDebug(`QR detectado: ${qr.data}`);
     }
   }catch(e){logError(`Erro QR loop: ${String(e)}`);}
@@ -36,7 +36,7 @@ b.addEventListener("click",async()=>{
   try{
     const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:"environment"}},audio:false});
     v.srcObject=s;
-    v.onloadedmetadata=()=>{logInfo(`Vídeo ativo ${v.videoWidth}x${v.videoHeight}`);if(!scanning){scanning=true;requestAnimationFrame(frameQR);}}; 
+    v.onloadedmetadata=()=>{logInfo(`Vídeo ativo ${v.videoWidth}x${v.videoHeight}`);if(!scanning){scanning=true;requestAnimationFrame(frameQR);}};
   }catch(e){logError(`Falha câmera: ${e.name||""} ${e.message||e}`);}
 });
 
