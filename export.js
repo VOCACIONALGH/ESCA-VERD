@@ -1,2 +1,1 @@
-// Arquivo mantido sem alterações.
-// Nenhuma função extra implementada.
+// Arquivo mantido sem funcionalidades extras
