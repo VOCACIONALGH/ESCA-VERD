@@ -1,7 +1,16 @@
 const openCameraButton = document.getElementById("openCamera");
 const video = document.getElementById("video");
+const uiConsole = document.getElementById("uiConsole");
+
+function logUI(message) {
+  uiConsole.textContent = message;
+}
+
+logUI("Aguardando ação do usuário...");
 
 openCameraButton.addEventListener("click", async () => {
+  logUI("Solicitando acesso à câmera...");
+
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
@@ -13,17 +22,16 @@ openCameraButton.addEventListener("click", async () => {
     });
 
     video.srcObject = stream;
+    logUI("Câmera aberta com sucesso.");
 
   } catch (error) {
+    logUI("Erro ao abrir a câmera.");
     console.error("Erro ao abrir a câmera:", error);
   }
 });
 
 /*
   Conversão RGB → HSV
-  r, g, b no intervalo [0, 255]
-  h no intervalo [0, 360)
-  s, v no intervalo [0, 1]
 */
 function rgbToHsv(r, g, b) {
   r /= 255;
