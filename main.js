@@ -37,8 +37,8 @@ b.addEventListener("click",async()=>{
     const s=await navigator.mediaDevices.getUserMedia({
       video:{
         facingMode:{ exact:"environment" },
-        width:{ ideal: 9999 },
-        height:{ ideal: 9999 }
+        width:{ ideal:9999 },
+        height:{ ideal:9999 }
       },
       audio:false
     });
