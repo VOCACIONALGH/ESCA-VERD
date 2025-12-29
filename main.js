@@ -1,6 +1,8 @@
 const openCameraButton = document.getElementById("openCamera");
 const video = document.getElementById("video");
 const uiConsole = document.getElementById("uiConsole");
+const redSlider = document.getElementById("redSlider");
+const redValue = document.getElementById("redValue");
 
 function logUI(message) {
   uiConsole.textContent = message;
@@ -62,3 +64,8 @@ function rgbToHsv(r, g, b) {
 
   return { h, s, v };
 }
+
+// Atualiza valor da barra e exibe no span
+redSlider.addEventListener("input", () => {
+  redValue.textContent = redSlider.value;
+});
