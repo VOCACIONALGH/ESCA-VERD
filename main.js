@@ -22,18 +22,7 @@ function frameQR(){
     if(typeof jsQR!=="function"){logError("jsQR não encontrado");scanning=false;return;}
     const qr=jsQR(id.data,w,h);
     if(qr&&qr.data){
-      if(qr.data==="Origem") {
-        logInfo("Origem detectada");
-
-        // Desenha ponto branco grande no centro do QR Code
-        const cxQR = (qr.location.topLeftCorner.x + qr.location.bottomRightCorner.x)/2;
-        const cyQR = (qr.location.topLeftCorner.y + qr.location.bottomRightCorner.y)/2;
-        const radius = 10; // tamanho do ponto branco
-        cx.beginPath();
-        cx.arc(cxQR, cyQR, radius, 0, 2*Math.PI);
-        cx.fillStyle = "#FFFFFF";
-        cx.fill();
-      }
+      if(qr.data==="Origem") logInfo("Origem detectada");
       else if(qr.data==="+X") logInfo("+X detectado");
       else if(qr.data==="+Z") logInfo("+Z detectado");
       else logDebug(`QR detectado: ${qr.data}`);
@@ -45,7 +34,8 @@ function frameQR(){
 b.addEventListener("click",async()=>{
   logInfo("Abrir câmera acionado");
   try{
-    const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:{exact:"environment"}},audio:false});
+    // Alteração: resoluções máximas suportadas
+    const s=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:4096},height:{ideal:2160},facingMode:{exact:"environment"}},audio:false});
     v.srcObject=s;
     v.onloadedmetadata=()=>{logInfo(`Vídeo ativo ${v.videoWidth}x${v.videoHeight}`);if(!scanning){scanning=true;requestAnimationFrame(frameQR);}};
   }catch(e){logError(`Falha câmera: ${e.name||""} ${e.message||e}`);}
