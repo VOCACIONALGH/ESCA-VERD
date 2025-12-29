@@ -16,7 +16,7 @@
 
   <video id="video" autoplay playsinline></video>
 
-  <!-- Console visível adicionado -->
+  <!-- Console visível adicionado anteriormente -->
   <section id="appConsole" aria-label="Console de Log">
     <div id="consoleHeader">
       <strong>Console Profundo</strong>
@@ -24,6 +24,9 @@
     </div>
     <div id="consoleOutput" role="log" aria-live="polite"></div>
   </section>
+
+  <!-- Biblioteca de leitura de QR (jsQR) adicionada — somente o necessário -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
   <script src="main.js"></script>
   <script src="export.js"></script>
