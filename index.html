@@ -16,7 +16,14 @@
 
   <video id="video" autoplay playsinline></video>
 
-  <div id="logConsole"></div>
+  <!-- Console visível adicionado -->
+  <section id="appConsole" aria-label="Console de Log">
+    <div id="consoleHeader">
+      <strong>Console Profundo</strong>
+      <span id="consoleStatus">— inicializado</span>
+    </div>
+    <div id="consoleOutput" role="log" aria-live="polite"></div>
+  </section>
 
   <script src="main.js"></script>
   <script src="export.js"></script>
