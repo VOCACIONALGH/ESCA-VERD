@@ -34,10 +34,19 @@ function frameQR(){
 b.addEventListener("click",async()=>{
   logInfo("Abrir câmera acionado");
   try{
-    // Alteração: resoluções máximas suportadas
-    const s=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:4096},height:{ideal:2160},facingMode:{exact:"environment"}},audio:false});
+    const s=await navigator.mediaDevices.getUserMedia({
+      video:{
+        facingMode:{ exact:"environment" },
+        width:{ ideal: 9999 },
+        height:{ ideal: 9999 }
+      },
+      audio:false
+    });
     v.srcObject=s;
-    v.onloadedmetadata=()=>{logInfo(`Vídeo ativo ${v.videoWidth}x${v.videoHeight}`);if(!scanning){scanning=true;requestAnimationFrame(frameQR);}};
+    v.onloadedmetadata=()=>{
+      logInfo(`Vídeo ativo ${v.videoWidth}x${v.videoHeight}`);
+      if(!scanning){scanning=true;requestAnimationFrame(frameQR);}
+    };
   }catch(e){logError(`Falha câmera: ${e.name||""} ${e.message||e}`);}
 });
 
