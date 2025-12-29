@@ -16,5 +16,17 @@ button {
 video {
   width: 100%;
   height: auto;
-  max-height: 100vh;
+  max-height: 70vh;
+}
+
+#uiConsole {
+  width: 100%;
+  min-height: 40px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #111;
+  color: #0f0;
+  font-family: monospace;
+  font-size: 14px;
+  border-top: 1px solid #333;
 }
