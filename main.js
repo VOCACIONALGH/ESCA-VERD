@@ -22,9 +22,20 @@ function frameQR(){
     if(typeof jsQR!=="function"){logError("jsQR não encontrado");scanning=false;return;}
     const qr=jsQR(id.data,w,h);
     if(qr&&qr.data){
-      if(qr.data==="Origem") logInfo("Origem detectada");
+      if(qr.data==="Origem") {
+        logInfo("Origem detectada");
+
+        // Desenha ponto branco grande no centro do QR Code
+        const cxQR = (qr.location.topLeftCorner.x + qr.location.bottomRightCorner.x)/2;
+        const cyQR = (qr.location.topLeftCorner.y + qr.location.bottomRightCorner.y)/2;
+        const radius = 10; // tamanho do ponto branco
+        cx.beginPath();
+        cx.arc(cxQR, cyQR, radius, 0, 2*Math.PI);
+        cx.fillStyle = "#FFFFFF";
+        cx.fill();
+      }
       else if(qr.data==="+X") logInfo("+X detectado");
-      else if(qr.data==="+Z") logInfo("+Z detectado"); // linha adicionada
+      else if(qr.data==="+Z") logInfo("+Z detectado");
       else logDebug(`QR detectado: ${qr.data}`);
     }
   }catch(e){logError(`Erro QR loop: ${String(e)}`);}
