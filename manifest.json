@@ -1,7 +1,7 @@
 {
-  "name": "Camera Web App",
-  "short_name": "Camera",
-  "start_url": ".",
+  "name": "Câmera Web",
+  "short_name": "Câmera",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
