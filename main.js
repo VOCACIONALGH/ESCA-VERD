@@ -1,31 +1,48 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Abrir Câmera</title>
+const button = document.getElementById("openCamera");
+const video = document.getElementById("video");
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
+button.addEventListener("click", async () => {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      facingMode: { exact: "environment" }
+    },
+    audio: false
+  });
 
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="layout.css">
-</head>
-<body>
+  video.srcObject = stream;
+});
 
-  <button id="openCamera">Abrir câmera</button>
+/*
+  Conversão RGB → HSV
+  r, g, b ∈ [0, 255]
+  h ∈ [0, 360)
+  s, v ∈ [0, 1]
+*/
+function rgbToHsv(r, g, b) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
 
-  <video id="video" autoplay playsinline></video>
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
 
-  <div id="logConsole"></div>
+  let h = 0;
 
-  <script src="main.js"></script>
-  <script src="export.js"></script>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
+  if (delta !== 0) {
+    if (max === r) {
+      h = ((g - b) / delta) % 6;
+    } else if (max === g) {
+      h = (b - r) / delta + 2;
+    } else {
+      h = (r - g) / delta + 4;
     }
-  </script>
+    h *= 60;
+    if (h < 0) h += 360;
+  }
 
-</body>
-</html>
+  const s = max === 0 ? 0 : delta / max;
+  const v = max;
+
+  return { h, s, v };
+}
