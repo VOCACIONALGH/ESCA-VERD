@@ -11,6 +11,7 @@ window.addEventListener("unhandledrejection",e=>{try{const r=e.reason;logError(`
 
 let scanning=false;
 const c=document.createElement("canvas"),cx=c.getContext("2d");
+
 function frameQR(){
   try{
     if(!v||v.readyState<2){if(scanning)requestAnimationFrame(frameQR);return;}
@@ -36,9 +37,9 @@ b.addEventListener("click",async()=>{
   try{
     const s=await navigator.mediaDevices.getUserMedia({
       video:{
-        facingMode:{ exact:"environment" },
-        width:{ ideal: 4096 },
-        height:{ ideal: 2160 }
+        facingMode:{ ideal:"environment" },
+        width:{ ideal:4096 },
+        height:{ ideal:2160 }
       },
       audio:false
     });
@@ -47,7 +48,9 @@ b.addEventListener("click",async()=>{
       logInfo(`Vídeo ativo ${v.videoWidth}x${v.videoHeight}`);
       if(!scanning){scanning=true;requestAnimationFrame(frameQR);}
     };
-  }catch(e){logError(`Falha câmera: ${e.name||""} ${e.message||e}`);}
+  }catch(e){
+    logError(`Falha câmera: ${e.name||""} ${e.message||e}`);
+  }
 });
 
 /* RGB -> HSV (inalterado) */
